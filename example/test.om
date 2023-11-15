@@ -1,0 +1,12 @@
+pkg test;
+using "@/std.oh";
+
+hidden fn hello_world(str greeting) int {
+    std.println(greeting)
+    return 0;
+}
+
+fn Main() int {
+    hello_world("Hello World");
+    return 0;
+}
