@@ -8,14 +8,19 @@ const (
 	Node_FunctionDeclaration
 	Node_VariableDeclaration
 	Node_ReturnStmt
+
 	Node_AssignmentExpr
 	Node_BinaryExpr
+	Node_UnaryExpr
 
 	Node_Identifer
 	Node_Int
 	Node_Float
 	Node_Bool
 	Node_String
+	Node_Null
+
+	Node_ObjType
 )
 
 type Node interface {
@@ -40,10 +45,17 @@ type Program struct {
 
 func (s *Program) Type() NodeType { return Node_Program }
 
+type TypedParameter struct {
+	Type  *ObjType
+	Param string
+}
+
 type FunctionDeclaration struct {
 	Stmt
-	Name string
-	Body []Stmt
+	Name       string
+	Params     []*TypedParameter
+	Body       []Stmt
+	ReturnType *ObjType
 }
 
 func (s *FunctionDeclaration) Type() NodeType { return Node_FunctionDeclaration }
@@ -72,6 +84,14 @@ type BinaryExpr struct {
 }
 
 func (s *BinaryExpr) Type() NodeType { return Node_BinaryExpr }
+
+type UnaryExpr struct {
+	Expr
+	Op    Token
+	Right Expr
+}
+
+func (s *UnaryExpr) Type() NodeType { return Node_UnaryExpr }
 
 type IdentiferLiteral struct {
 	Expr
@@ -107,3 +127,17 @@ type StringLiteral struct {
 }
 
 func (s *StringLiteral) Type() NodeType { return Node_String }
+
+type NullLiteral struct {
+	Expr
+	Value interface{}
+}
+
+func (s *NullLiteral) Type() NodeType { return Node_Null }
+
+type ObjType struct {
+	Expr
+	NodeType TokenType
+}
+
+func (s *ObjType) Type() NodeType { return Node_ObjType }

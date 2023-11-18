@@ -95,15 +95,25 @@ func (p *Parser) parseAdditiveExpr() Expr {
 }
 
 func (p *Parser) parseMultiplicativeExpr() Expr {
-	left := p.parsePrimaryExpr()
+	left := p.parseUnaryExpr()
 	for p.at().Type == MULTIPLY || p.at().Type == DIVIDE || p.at().Type == MODULO {
 		left = &BinaryExpr{
 			Op:    p.next(),
 			Left:  left,
-			Right: p.parsePrimaryExpr(),
+			Right: p.parseUnaryExpr(),
 		}
 	}
 	return left
+}
+
+func (p *Parser) parseUnaryExpr() Expr {
+	if p.at().Type == MINUS || p.at().Type == PLUS {
+		return &UnaryExpr{
+			Op:    p.next(),
+			Right: p.parsePrimaryExpr(),
+		}
+	}
+	return p.parsePrimaryExpr()
 }
 
 func (p *Parser) parsePrimaryExpr() Expr {
@@ -126,6 +136,10 @@ func (p *Parser) parsePrimaryExpr() Expr {
 		ex := p.parseExpr()
 		p.expect(CLOSE_PAREN)
 		return ex
+	case Type_Boolean, Type_Float, Type_Function, Type_Int, Type_String, Type_Void:
+		return &ObjType{
+			NodeType: p.next().Type,
+		}
 	default: log.Fatalf("Unexpected Token %v", p.at()); return nil
 	}
 }

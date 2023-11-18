@@ -57,6 +57,7 @@ const (
 	Type_Float
 	Type_Boolean
 	Type_Function
+	Type_Void
 
 	// Literals
 	Identifer
@@ -64,6 +65,7 @@ const (
 	Literal_Int
 	Literal_Float
 	Literal_Boolean
+	Literal_Null
 	
 	// Keyword
 	Keyword_Function
@@ -79,6 +81,7 @@ func ToKeyword(value string) TokenType {
 		"bool": Type_Boolean,
 		"str":  Type_String,
 		"Func": Type_Function,
+		"void": Type_Void,
 
 		"fn": Keyword_Function,
 		"if": Keyword_If,
