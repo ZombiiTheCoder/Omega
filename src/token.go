@@ -39,6 +39,14 @@ const (
 	SEMI_COLON
 	COMMA
 	NOT
+	ARROW
+
+	PIPE
+	LOGIC_OR
+	AMPERSAN
+	LOGIC_AND
+	XOR
+	MODULO
 
 	NOT_EQUALS
 	EQUALS
@@ -59,9 +67,9 @@ const (
 	
 	// Keyword
 	Keyword_Function
-	Keyword_Package
 	Keyword_If
 	Keyword_Else
+	Keyword_Return
 )
 
 func ToKeyword(value string) TokenType {
@@ -73,9 +81,9 @@ func ToKeyword(value string) TokenType {
 		"Func": Type_Function,
 
 		"fn": Keyword_Function,
-		"pkg": Keyword_Package,
 		"if": Keyword_If,
 		"else": Keyword_Else,
+		"return": Keyword_Return,
 	}
 	if val, ok := keys[value]; ok {
 		return val

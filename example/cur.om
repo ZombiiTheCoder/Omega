@@ -1,1 +1,13 @@
-pkg cur;
+//fn Hello_World2() -> void {
+//    print("Hello World");
+//   return null;
+//}
+
+//fn Hello_World() -> void {
+//    fn Hello_World2() {
+//        print("Hello World");
+//    }
+//    print("Hello World");
+//    return null;
+//}
+(1+2)

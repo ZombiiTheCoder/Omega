@@ -1,5 +1,4 @@
-pkg test;
-using "@/std.oh";
+using "cur.om";
 
 hidden fn hello_world(str greeting) int {
     std.println(greeting)

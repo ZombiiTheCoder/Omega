@@ -58,6 +58,7 @@ func (l *Lexer) Tokenize() []Token {
 			case '-':
 				switch l.peek(1) {
 					case '=': Tokens = append(Tokens, Token{Literal: "-=", Type: MINUS_ASSIGN}); l.ptr+=2
+					case '>': Tokens = append(Tokens, Token{Literal: "->", Type: ARROW}); l.ptr+=2
 					default: Tokens = append(Tokens, Token{Literal: "-", Type: MINUS}); l.ptr++
 				}
 			case '+':

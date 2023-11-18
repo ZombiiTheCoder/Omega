@@ -2,7 +2,7 @@ package src
 
 import (
 	"log"
-	. "omega/src/ast"
+	"strings"
 )
 
 type Parser struct {
@@ -32,19 +32,35 @@ func (p *Parser) expect(Expected TokenType) Token {
 }
 
 func (p *Parser) ProduceAst() Stmt {
-	prog := &Program{File:p.File, Body: []Stmt{}}
-	p.expect(Keyword_Package)
-	prog.PackageName = p.expect(Identifer).Literal
-	p.expect(SEMI_COLON)
+	prog := &Program{File:p.File, Body: []Stmt{}, PackageName: strings.Split(p.File, ".")[0]}
 	for p.notEof() {
-		prog.Body = append(prog.Body, p.parseBaseStmt())
+		prog.Body = append(prog.Body, p.parseStmt())
 	}
 	return prog
 }
 
-func (p *Parser) parseBaseStmt() Stmt {
+func (p *Parser) parseStmt() Stmt {
 	switch p.at().Type {
-		
+	case Keyword_Function: return p.parseFunctionDeclaration()
+	case Keyword_Return: return &ReturnStmt{Value: p.parseExpr()}
+	default: return p.parseExpr()
 	}
-	return nil
+}
+
+func (p *Parser) parseBlockStmt() []Stmt {
+	block := []Stmt{}
+	for p.notEof() {
+		block = append(block, p.parseStmt())
+	}
+	return block
+}
+
+func (p *Parser) parseFunctionDeclaration() Stmt {
+	p.expect(Keyword_Function)
+	name := p.next().Literal
+	body := p.parseBlockStmt()
+	return &FunctionDeclaration{
+		Name: name,
+		Body: body,
+	}
 }
