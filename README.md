@@ -14,8 +14,8 @@ fn Hello_World() -> void {
     int i = 0; // Valid
     return null // Invalid
     return null; // Valid
-} // Invalid
-}; // Valid
+}; // Invalid
+} // Valid
 ```
 
 ## Functions (Types)
@@ -26,12 +26,12 @@ fn Hello_World() -> void {
 fn Hello_World() -> void {
     int i = 0;
     return null;
-};
+}
 
 fn Hello_World2() {
     int i = 0;
     return null;
-};
+}
 
 // Both Are Valid Functions
 ```
