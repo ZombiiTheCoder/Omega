@@ -1,13 +1,13 @@
 # Omega Language
 
-## Rule \#1 All Functions Must Return Something
+## All Functions Must Return Something
 ```
 fn Hello_World() -> void {
     return null;
 }
 ```
 
-## Rule \#2 All Expression and or Statements Must End With A Semicolon
+## All Expression and or Statements Must End With A Semicolon
 ```
 fn Hello_World() -> void {
     int i = 0 // Invalid
